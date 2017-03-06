@@ -3,7 +3,6 @@
   use Aws\CloudWatchLogs\CloudWatchLogsClient;
   use Maxbanton\Cwh\Handler\CloudWatch;
   use Monolog\Logger;
-  use Monolog\Formatter\LineFormatter;
   use Monolog\Handler\ErrorLogHandler;
 
   class OngairLogger {
@@ -30,9 +29,8 @@
       $client = new CloudWatchLogsClient($credentials);
       $logGroupName = 'ongair-whatsapp';
       $logStreamName = getenv('account').'.'.getenv('env');
-      $daysToRetention = 14;
 
-      $handler = new CloudWatch($client, $logGroupName, $logStreamName, $daysToRetention);
+      $handler = new CloudWatch($client, $logGroupName, $logStreamName);
       $stream = new ErrorLogHandler();
 
       self::$instance = new Logger('name');
